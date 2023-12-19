@@ -1,5 +1,15 @@
 export default function Home() {
   return (
-    <div>Hello</div>
+    <div>
+      <Image />
+    </div>
   )
+}
+  
+function Image() {
+  return (
+    <div>
+      <img src="/next.svg"/>
+    </div>
+  );
 }
