@@ -20,7 +20,7 @@ export default function RootLayout({
     </html>
   )
 }
-//
+//hello 
 // import './global.css'
 
 // export default function RootLayout({ children }: any) {
