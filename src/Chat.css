@@ -1,0 +1,104 @@
+.title {
+  font-size: xx-large;
+  text-align: center;
+}
+
+.custom-upload-button {
+  background-color: white;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  color: #333;
+}
+
+.response {
+  margin-top: 2%;
+  font-size: large;
+  text-align: center;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.submit {
+  text-align: center;
+  margin-top: 1%;
+}
+
+.button {
+  border-radius: 10px;
+}
+
+.select {
+  text-align: center;
+  justify-content: center;
+  margin-top: 1%;
+}
+
+.options {
+  border-radius: 10px;
+}
+
+.text {
+  text-align: center;
+  margin-top: 1%;
+}
+
+.written {
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.items {
+  text-align: center;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+.custom-upload-button:hover {
+  background-color: #f0f0f0;
+}
+
+.hidden-upload {
+  display: none; 
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #f7b7d0;
+  color: white;
+  box-shadow: 0 0 10px rgba(247, 183, 208, 0.7), 0 0 20px rgba(247, 183, 208, 0.7); 
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px #f7b7d0, 0 0 10px #f7b7d0, 0 0 20px #f7b7d0, 0 0 40px #f7b7d0;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links a, .nav-links {
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0.25rem 0.5rem; 
+  transition: color 0.3s ease;
+  text-shadow: 0 0 5px #f7b7d0, 0 0 10px #f7b7d0;
+  transition: transform 0.3s ease;
+}
+.nav-links a:hover {
+  color: #e7e7e7;
+  text-shadow: 0 0 10px #f7b7d0, 0 0 20px #f7b7d0, 0 0 30px #f7b7d0;
+  transform: scale(1.1);
+}

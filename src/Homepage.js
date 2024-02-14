@@ -1,8 +1,42 @@
 import React from 'react';
 import './HomePage.css'; 
+import { motion } from 'framer-motion'
+import { InView } from 'react-intersection-observer';
 
 function HomePage() {
 
+  const cards = [
+    <div className='feature-card'>
+    <div className="feature-section" id="ai-chat">
+      <a href="/chat">
+        <h2>AI Chat</h2>
+        <p>Engage in meaningful conversations with our highly trained AI assistant, available 24/7 to offer you support, guidance, and companionship. Whether you're seeking answers to complex questions, need assistance with daily tasks, or simply wish to share your thoughts, our AI chat feature is here to listen and respond with empathy and intelligence. Powered by cutting-edge technology, it's designed to understand and adapt to your personal needs, making every interaction as enriching as it is helpful.</p>
+      </a>
+    </div>
+    </div>,
+    <div className='feature-card'>
+      <div className="feature-section" id="mental-health-resources">
+        <a href="/resources">
+          <h2>Mental Health Resources</h2>
+          <p>Discover a comprehensive collection of mental health resources, carefully curated to support those facing mental health challenges. Our repository includes a wide range of websites, contact numbers, and informative links, providing access to expert advice, support groups, and therapeutic services. Whether you're looking for immediate help, seeking to understand more about mental health conditions, or exploring ways to support a loved one, our resources offer valuable guidance and reassurance in your journey towards wellbeing.</p>
+        </a>
+      </div>
+    </div>,
+    <div className='feature-card'>
+      <div className="feature-section" id="donations-charity">
+        <a href="/donate">
+          <h2>Donations and Charity</h2>
+          <p>Make a meaningful difference by contributing to esteemed organizations dedicated to advancing mental health awareness, education, and support. Your donations help fund vital services, including crisis intervention, ongoing research, and the development of educational programs aimed at destigmatizing mental health issues. By donating, you're not only supporting those in immediate need but also investing in a future where mental health is openly discussed, understood, and prioritized by communities worldwide. Join us in our mission to create a more compassionate and informed society.</p>
+        </a>
+      </div>
+    </div>
+  ];
+
+  const itemVariants = {
+    visible: { opacity: 1, transition: { duration: 0.5 } },
+    hidden: { opacity: 0, transition: { duration: 0.5 } },
+  };
+  
   return (
     <div className="homepage">
       <nav className="navbar">
@@ -19,32 +53,22 @@ function HomePage() {
         <p>HelpingHand provides mental health support to those who need.</p>
         <a className="cta" href='#features'>Explore</a>
       </header>
-
+    
       <section id="features" className="features-sections">
-        <div className='feature-card'>
-          <div className="feature-section" id="ai-chat">
-            <a href="/chat">
-              <h2>AI Chat</h2>
-              <p>Engage in meaningful conversations with our highly trained AI assistant, available 24/7 to offer you support, guidance, and companionship. Whether you're seeking answers to complex questions, need assistance with daily tasks, or simply wish to share your thoughts, our AI chat feature is here to listen and respond with empathy and intelligence. Powered by cutting-edge technology, it's designed to understand and adapt to your personal needs, making every interaction as enriching as it is helpful.</p>
-            </a>
-          </div>
-        </div>
-        <div className='feature-card'>
-          <div className="feature-section" id="mental-health-resources">
-            <a href="/resources">
-              <h2>Mental Health Resources</h2>
-              <p>Discover a comprehensive collection of mental health resources, carefully curated to support those facing mental health challenges. Our repository includes a wide range of websites, contact numbers, and informative links, providing access to expert advice, support groups, and therapeutic services. Whether you're looking for immediate help, seeking to understand more about mental health conditions, or exploring ways to support a loved one, our resources offer valuable guidance and reassurance in your journey towards wellbeing.</p>
-            </a>
-          </div>
-        </div>
-        <div className='feature-card'>
-          <div className="feature-section" id="donations-charity">
-            <a href="/donate">
-              <h2>Donations and Charity</h2>
-              <p>Make a meaningful difference by contributing to esteemed organizations dedicated to advancing mental health awareness, education, and support. Your donations help fund vital services, including crisis intervention, ongoing research, and the development of educational programs aimed at destigmatizing mental health issues. By donating, you're not only supporting those in immediate need but also investing in a future where mental health is openly discussed, understood, and prioritized by communities worldwide. Join us in our mission to create a more compassionate and informed society.</p>
-            </a>
-          </div>
-        </div>
+        {cards.map((item, index) => (
+          <InView key={index} triggerOnce={false} threshold={0.7}>
+            {({ inView, ref }) => (
+              <motion.div
+                ref={ref}
+                variants={itemVariants}
+                initial="hidden"
+                animate={inView ? "visible" : "hidden"}
+              >
+                {item}
+              </motion.div>
+            )}
+          </InView>
+        ))}
       </section>
 
       <section id="contact" className="contact-section">
