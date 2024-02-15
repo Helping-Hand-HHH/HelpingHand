@@ -2,8 +2,14 @@ import './Chat.css';
 import React, { useState } from 'react'
 
 function Chat() {
-  const [response, setResponse] = useState('Awaiting Submission');
-  
+  const [text, setText] = useState('');
+  const [conversation, setConversation] = useState([]);
+  const [response, setResponse] = useState('Waiting for Submission');
+
+  const updateConversation = (userText, botResponse) => {
+    setConversation(prevConvo => [...prevConvo, { type: 'user', message: userText }, { type: 'bot', message: botResponse }]);
+  };
+
   return (
     <div>
       <nav className="navbar">
@@ -14,16 +20,25 @@ function Chat() {
         </div>
       </nav>
       <p className="title">HelpingHand AI Chat</p>
-      <div className="select">
-      </div>
-      <TextSubmit setResponse={setResponse}/>
-      <p className="response">{response}</p>
+      <div className="select"></div>
+      <Conversation conversation={conversation} />
+      <TextSubmit text={text} setResponse={setResponse} setText={setText} updateConversation={updateConversation}/>
+      <p className='response'>{response}</p>
     </div>
   );
 }
 
-function TextSubmit({ setResponse }) {
-  const [text, setText] = useState('');
+function Conversation({ conversation }) {
+  return (
+    <div className='conversation'>
+      {conversation.map((convo, index) => (
+        <div className='single-response' key={index}>{convo.type === 'user' ? `You: ${convo.message}` : `HelpingHand: ${convo.message}`}</div>
+      ))}
+    </div>
+  );
+}
+
+function TextSubmit({ setResponse, text, setText, updateConversation }) {
 
   const getTextResponse = (text) => {
     fetch("http://localhost:8000/", {
@@ -40,33 +55,46 @@ function TextSubmit({ setResponse }) {
       return response.json();
     })
     .then(data => {
-      console.log('Success:', data);
-      setResponse(data.message);
+      console.log('Success:', data.message);
+      let response = data.message.replace(/^['"]|['"]$/g, '');
+      let fin = response.substring(2);
+      updateConversation(text, fin);
+      setResponse('');
     })
     .catch((error) => {
       console.error('Error:', error);
-      setResponse("Error: " + error.message);
     });
   }
 
-
+  const textareaRef = React.useRef(null); 
+  
   const handleTextChange = (e) => {
+    const textarea = textareaRef.current;
     setText(e.target.value);
-  }
+  
+    textarea.style.height = 'auto'; 
+  
+    textarea.style.height = textarea.scrollHeight + 'px';
+  };
 
   const handleSubmit = () => {
+    setResponse('Please wait, generating response');
     getTextResponse(text);
-    setResponse("Please wait, generating response");
-  }
+    setText('');
+    if (textareaRef.current) {
+      textareaRef.current.rows = 1;
+    }
+  };
 
   return (
-    <div>
-      <div className="text">
-        <textarea className="written" rows={10} cols={80} onChange={handleTextChange}></textarea>
-      </div>
-      <div className="submit">
+    <div className="text">
+      <textarea
+        ref={textareaRef}
+        className="written"
+        value={text}
+        rows={1}
+        onChange={handleTextChange}></textarea>
         <input className="button" type='submit' onClick={handleSubmit}></input>
-      </div>
     </div>
   );
 }
