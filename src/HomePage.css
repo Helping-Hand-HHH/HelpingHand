@@ -266,7 +266,7 @@ body, html {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   margin-bottom: 30px;
   overflow: hidden;
-  animation: pinkGlow 3s infinite alternate; 
+  animation: pinkGlow 3s linear infinite; 
 }
 
 @media (max-width: 768px) {

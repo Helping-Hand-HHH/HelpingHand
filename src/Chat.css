@@ -133,7 +133,7 @@
   border: 3px solid white;
   border-radius: 10px;
   padding-bottom: 40px;
-  animation: pinkGlow 3s infinite alternate; 
+  animation: pinkGlow 3s linear infinite;
 }
 
 @keyframes pinkGlow {

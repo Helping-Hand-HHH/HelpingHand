@@ -29,11 +29,15 @@ function Chat() {
 }
 
 function Conversation({ conversation }) {
+
+
   return (
-    <div className='conversation'>
-      {conversation.map((convo, index) => (
-        <div className='single-response' key={index}>{convo.type === 'user' ? `You: ${convo.message}` : `HelpingHand: ${convo.message}`}</div>
-      ))}
+    <div>
+      {conversation.length !== 0 && (<div className='conversation'>
+        {conversation.map((convo, index) => (
+          <div className='single-response' key={index}>{convo.type === 'user' ? <span><strong>You:</strong> {convo.message}</span> : <span><strong>HelpingHand:</strong> {convo.message}</span>}</div>
+        ))}
+      </div>)}
     </div>
   );
 }
@@ -56,9 +60,8 @@ function TextSubmit({ setResponse, text, setText, updateConversation }) {
     })
     .then(data => {
       console.log('Success:', data.message);
-      let response = data.message.replace(/^['"]|['"]$/g, '');
-      let fin = response.substring(2);
-      updateConversation(text, fin);
+      const copy = data.message;
+      updateConversation(text, copy);
       setResponse('');
     })
     .catch((error) => {
