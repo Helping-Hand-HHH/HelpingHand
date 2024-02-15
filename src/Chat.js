@@ -26,22 +26,29 @@ function TextSubmit({ setResponse }) {
   const [text, setText] = useState('');
 
   const getTextResponse = (text) => {
-    fetch('http://localhost:3001/api/gpt/text', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ text }),
+    fetch("http://localhost:8000/", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ text }),
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(data => {
-        console.log('Success:', data.message);
-        setResponse(data.message);
+      console.log('Success:', data);
+      setResponse(data.message);
     })
     .catch((error) => {
-        console.error('Error:', error);
+      console.error('Error:', error);
+      setResponse("Error: " + error.message);
     });
   }
+
 
   const handleTextChange = (e) => {
     setText(e.target.value);
