@@ -138,7 +138,7 @@
 
 .clear {
   cursor: pointer;
-  position: absolute;
+  position: fixed;
   bottom: 23px;
   left: 20px;
   text-align: end; 
@@ -149,7 +149,7 @@
 
 .mic {
   cursor: pointer;
-  position: absolute;
+  position: fixed;
   bottom: 23px;
   right: 50px;
   text-align: end;

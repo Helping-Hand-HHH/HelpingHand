@@ -83,7 +83,7 @@ function TextSubmit({ setResponse, text, setText, updateConversation }) {
       console.log('Success:', data.message);
       const copy = data.message;
       updateConversation(text, copy);
-      setResponse('');
+      setResponse('Waiting for Submission');
     })
     .catch((error) => {
       console.error('Error:', error);
