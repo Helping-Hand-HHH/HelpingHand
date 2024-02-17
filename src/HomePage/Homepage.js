@@ -10,7 +10,7 @@ function HomePage() {
     <div className="feature-section" id="ai-chat">
       <a href="/chat">
         <h2>AI Chat</h2>
-        <p>Engage in meaningful conversations with our highly trained AI assistant, available 24/7 to offer you support, guidance, and companionship. Whether you're seeking answers to complex questions, need assistance with daily tasks, or simply wish to share your thoughts, our AI chat feature is here to listen and respond with empathy and intelligence. Powered by cutting-edge technology, it's designed to understand and adapt to your personal needs, making every interaction as enriching as it is helpful.</p>
+        <p>Chat with our AI assistant 24/7 for support, answers, and companionship, all tailored to your needs with empathy and intelligence.</p>
       </a>
     </div>
     </div>,
@@ -18,7 +18,7 @@ function HomePage() {
       <div className="feature-section" id="mental-health-resources">
         <a href="/affirmations">
           <h2>Affirmations</h2>
-          <p>Empower your day with positive affirmations designed to boost your confidence, resilience, and inner strength. Our carefully crafted affirmations encourage self-love, positivity, and a growth mindset, guiding you towards a more fulfilling life. Each phrase is a stepping stone to embracing your true potential, overcoming obstacles, and cultivating a sense of peace and happiness. Write down or repeat these affirmations to yourself during moments of doubt or whenever you need a motivational lift. Let these powerful words inspire you to achieve your goals and embrace the beauty of your journey.</p>
+          <p>Boost your day with positive affirmations for confidence, self-love, and growth. Use these phrases for motivation and to foster peace and happiness.</p>
         </a>
       </div>
     </div>,
@@ -26,7 +26,7 @@ function HomePage() {
       <div className="feature-section" id="mental-health-resources">
         <a href="/destress">
           <h2>Destress</h2>
-          <p>Find your oasis of calm with our destress techniques, featuring meditation and breathing exercises tailored to soothe your mind and body. In today’s fast-paced world, taking time to unwind and relieve stress is essential for maintaining mental health and overall wellbeing. Our guided routines are easy to follow and can be practiced anywhere, anytime, providing you with instant relaxation and a sense of renewal. Whether you're new to meditation or looking for effective breathing strategies, our resources are here to support your journey towards tranquility.</p>
+          <p>Discover calm with our meditation and breathing techniques, designed for instant relaxation and mental wellbeing. Practice our easy-to-follow routines anytime, anywhere, for peace and renewal.</p>
         </a>
       </div>
     </div>,
@@ -34,7 +34,7 @@ function HomePage() {
       <div className="feature-section" id="mental-health-resources">
         <a href="/mindfulness">
           <h2>Mindfulness</h2>
-          <p>Embrace the present moment with mindfulness practices that enrich your daily life. Our mindfulness exercises encourage you to engage fully with the here and now, fostering awareness, gratitude, and joy in everyday activities. By answering thought-provoking questions, you'll learn to observe your thoughts and feelings without judgment, leading to a deeper understanding of yourself and the world around you. Cultivate a mindful attitude to improve focus, reduce stress, and enhance your relationships with others and with yourself.</p>
+          <p>Enhance your life with mindfulness practices for the present moment. Our exercises promote awareness, gratitude, and joy, helping you observe thoughts and feelings non-judgmentally. Cultivate mindfulness to boost focus, lower stress, and improve relationships.</p>
         </a>
       </div>
     </div>,
@@ -42,7 +42,7 @@ function HomePage() {
       <div className="feature-section" id="mental-health-resources">
         <a href="/resources">
           <h2>Mental Health Resources</h2>
-          <p>Discover a comprehensive collection of mental health resources, carefully curated to support those facing mental health challenges. Our repository includes a wide range of websites, contact numbers, and informative links, providing access to expert advice, support groups, and therapeutic services. Whether you're looking for immediate help, seeking to understand more about mental health conditions, or exploring ways to support a loved one, our resources offer valuable guidance and reassurance in your journey towards wellbeing.</p>
+          <p>Find a wide array of mental health resources, including expert advice, support groups, and therapy services. Our collection supports anyone seeking help, understanding, or ways to assist others, guiding you towards wellbeing.</p>
         </a>
       </div>
     </div>,
@@ -50,7 +50,7 @@ function HomePage() {
       <div className="feature-section" id="donations-charity">
         <a href="/donate">
           <h2>Donations and Charity</h2>
-          <p>Make a meaningful difference by contributing to esteemed organizations dedicated to advancing mental health awareness, education, and support. Your donations help fund vital services, including crisis intervention, ongoing research, and the development of educational programs aimed at destigmatizing mental health issues. By donating, you're not only supporting those in immediate need but also investing in a future where mental health is openly discussed, understood, and prioritized by communities worldwide. Join us in our mission to create a more compassionate and informed society.</p>
+          <p>Support mental health progress by donating to respected organizations. Your contributions fund crucial services like crisis aid, research, and education to combat stigma. By giving, you aid those in need and invest in a future where mental health is prioritized. Help us foster a compassionate, informed society.</p>
         </a>
       </div>
     </div>,
