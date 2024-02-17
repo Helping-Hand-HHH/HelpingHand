@@ -4,7 +4,7 @@ import NavBar from '../NavBar/NavBar.js'
 function Resources() {
   return (
     <div>
-      <NavBar currPage={'destress'}/>
+      <NavBar currPage={'resources'}/>
       <p className="title">Resources</p>
     </div>
   );
