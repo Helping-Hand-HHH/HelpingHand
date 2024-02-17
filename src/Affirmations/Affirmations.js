@@ -5,6 +5,7 @@ function Affirmations() {
     return (
         <div>
             <NavBar currPage={'affirmations'}/>
+            <p className='title'>Affirmations</p>
         </div>
     );
 }

@@ -5,6 +5,7 @@ function Mindfullness() {
     return (
         <div>
             <NavBar currPage={'mindfullness'}/>
+            <p className='title'>Mindfullness</p>
         </div>
     );
 }

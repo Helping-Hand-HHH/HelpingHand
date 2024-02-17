@@ -5,6 +5,7 @@ function Destress() {
     return (
         <div>
             <NavBar currPage={'destress'}/>
+            <p className='title'>Destress</p>
         </div>
     );
 }
