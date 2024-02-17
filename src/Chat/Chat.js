@@ -62,7 +62,7 @@ function Conversation({ conversation }) {
 function TextSubmit({ setResponse, text, setText, updateConversation }) {
 
   const getTextResponse = (text) => {
-    fetch("http://localhost:8000/", {
+    fetch("http://localhost:3001/api/gpt/text", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ function AudioRecorder({ setResponse }) {
       const formData = new FormData();
       formData.append('audio', audioBlob, 'recording.wav');
   
-      const response = await fetch('http://localhost:8000/audio', {
+      const response = await fetch('http://localhost:3000/api/gpt/audio', {
         method: 'POST',
         body: formData,
       });
@@ -154,7 +154,7 @@ function AudioRecorder({ setResponse }) {
       console.error('Error:', error);
     }
   };
-  
+
   const startRecording = async () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -163,6 +163,18 @@ function AudioRecorder({ setResponse }) {
         audioChunks.current.push(event.data);
       };
       mediaRecorder.current.onstop = () => {
+        // const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+
+        // const audioUrl = URL.createObjectURL(audioBlob);
+      
+        // const downloadLink = document.createElement('a');
+        // downloadLink.href = audioUrl;
+        // downloadLink.setAttribute('download', 'recording.wav'); 
+        // document.body.appendChild(downloadLink); 
+        // downloadLink.click();
+      
+        // URL.revokeObjectURL(audioUrl);
+      
         audioChunks.current = [];
       };
       mediaRecorder.current.start();

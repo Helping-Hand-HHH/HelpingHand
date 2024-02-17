@@ -1,20 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 import openai
 from dotenv import load_dotenv
 import os
 from pydantic import BaseModel
-# from langchain.text_splitter import CharacterTextSplitter
-# from langchain.embeddings import OpenAIEmbeddings
-# from langchain.vectorstores import FAISS
-# from langchain.chat_models import ChatOpenAI
-# from langchain.memory import ConversationBufferMemory
-# from langchain.chains import ConversationalRetrievalChain
-
-# class Lang:
-#     conversation = None
-#     chat_history = None
-#     response = None
+from io import BytesIO
+import shutil
+from pathlib import Path
     
 class TextRequest(BaseModel):
     text: str
@@ -32,41 +25,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# def get_text_chunks(text):
-#     text_splitter = CharacterTextSplitter(
-#         separator="\n",
-#         chunk_size=1000,
-#         chunk_overlap=200,
-#         length_function=len
-#     )
-#     chunks = text_splitter.split_text(text)
-#     return chunks
-
-
-# def get_vectorstore(text_chunks):
-#     embeddings = OpenAIEmbeddings()
-#     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
-#     return vectorstore
-
-
-# def get_conversation_chain(vectorstore):
-#     llm = ChatOpenAI()
-
-#     memory = ConversationBufferMemory(
-#         memory_key='chat_history', return_messages=True)
-#     conversation_chain = ConversationalRetrievalChain.from_llm(
-#         llm=llm,
-#         retriever=vectorstore.as_retriever(),
-#         memory=memory
-#     )
-#     return conversation_chain
-
-
-# def handle_userinput(user_question):
-#     Lang.response = Lang.conversation({'question': user_question})
-#     Lang.chat_history = Lang.response['chat_history']
-
-
 def generate_response(text):
     response = openai.Completion.create(
         model="gpt-3.5-turbo-instruct",
@@ -75,33 +33,35 @@ def generate_response(text):
     )
     return response.choices[0].text
 
+def textToAudio(text):
+    response = openai.Audio.speech.create(
+        model="tts-1",
+        voice="alloy",
+        input=text
+    )
+    audio_buffer = BytesIO()
+    response.stream_to_file(audio_buffer)
+    audio_buffer.seek(0)  
+    return audio_buffer.getvalue()  
+
 @app.post("/")
 async def return_text(request: TextRequest):
     raw_text = request.text
-    # if not Lang.conversation:
-    #     Lang.conversation = None
-    # if not Lang.chat_history:
-    #     Lang.chat_history = None
-        
-    # handle_userinput(raw_text)
-
-    # text_chunks = get_text_chunks(raw_text)
-
-    # vectorstore = get_vectorstore(text_chunks)
-
-    # Lang.conversation = get_conversation_chain(vectorstore)
     
     try:
-        # return {"message": generate_response(raw_text), "conversation": Lang.conversation, "chat_history": Lang.chat_history}
         return {"message": generate_response(raw_text)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
+
 @app.post("/audio")
-async def return_text():
+async def upload_audio(audio: UploadFile = File(...)):
+    converted_text = ''
+    
     try:
-        # create function for generating LLM response on request with whisper
-        # return the response generated
-        return {"message": "Audio recording successfully sent"}
+        with open(audio.filename, 'rb') as file:
+            transcription = openai.audio.transcriptions.create("whisper-1", file)
+            converted_text = transcription['text']
+        return {"message": converted_text}
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
