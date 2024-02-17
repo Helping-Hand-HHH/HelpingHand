@@ -18,7 +18,7 @@ function HomePage() {
       <div className="feature-section" id="mental-health-resources">
         <a href="/affirmations">
           <h2>Affirmations</h2>
-          <p></p>
+          <p>Empower your day with positive affirmations designed to boost your confidence, resilience, and inner strength. Our carefully crafted affirmations encourage self-love, positivity, and a growth mindset, guiding you towards a more fulfilling life. Each phrase is a stepping stone to embracing your true potential, overcoming obstacles, and cultivating a sense of peace and happiness. Write down or repeat these affirmations to yourself during moments of doubt or whenever you need a motivational lift. Let these powerful words inspire you to achieve your goals and embrace the beauty of your journey.</p>
         </a>
       </div>
     </div>,
@@ -26,15 +26,15 @@ function HomePage() {
       <div className="feature-section" id="mental-health-resources">
         <a href="/destress">
           <h2>Destress</h2>
-          <p></p>
+          <p>Find your oasis of calm with our destress techniques, featuring meditation and breathing exercises tailored to soothe your mind and body. In today’s fast-paced world, taking time to unwind and relieve stress is essential for maintaining mental health and overall wellbeing. Our guided routines are easy to follow and can be practiced anywhere, anytime, providing you with instant relaxation and a sense of renewal. Whether you're new to meditation or looking for effective breathing strategies, our resources are here to support your journey towards tranquility.</p>
         </a>
       </div>
     </div>,
     <div className='feature-card'>
       <div className="feature-section" id="mental-health-resources">
-        <a href="/mindfullness">
-          <h2>Mindfullness</h2>
-          <p></p>
+        <a href="/mindfulness">
+          <h2>Mindfulness</h2>
+          <p>Embrace the present moment with mindfulness practices that enrich your daily life. Our mindfulness exercises encourage you to engage fully with the here and now, fostering awareness, gratitude, and joy in everyday activities. By answering thought-provoking questions, you'll learn to observe your thoughts and feelings without judgment, leading to a deeper understanding of yourself and the world around you. Cultivate a mindful attitude to improve focus, reduce stress, and enhance your relationships with others and with yourself.</p>
         </a>
       </div>
     </div>,

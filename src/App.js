@@ -5,7 +5,7 @@ import Donate from './Donate/Donate.js'
 import Resources from './Resources/Resources.js'
 import Affirmations from './Affirmations/Affirmations.js'
 import Destress from './Destress/Destress.js'
-import Mindfullness from './Mindfullness/Mindfullness.js'
+import Mindfulness from './Mindfulness/Mindfulness.js'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/resources" element={<Resources />} />
         <Route path="/affirmations" element={<Affirmations />} />
         <Route path="/destress" element={<Destress />} />
-        <Route path="/mindfullness" element={<Mindfullness />} />
+        <Route path="/mindfulness" element={<Mindfulness />} />
       </Routes>
     </Router>
   );

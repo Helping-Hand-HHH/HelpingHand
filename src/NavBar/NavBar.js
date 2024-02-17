@@ -5,7 +5,7 @@ function NavBar({ currPage }) {
       <a id="chat" href="/chat">Chat</a>,
       <a id="affirmations" href="/affirmations">Affirmations</a>,
       <a id="destress" href="/destress">Destress</a>,
-      <a id="mindfullness" href="/mindfullness">Mindfullness</a>,
+      <a id="mindfulness" href="/mindfulness">Mindfulness</a>,
       <a id="resources" href="/resources">Resources</a>,
       <a id="donate" href="/donate">Donations</a>,
     ];
