@@ -16,6 +16,30 @@ function HomePage() {
     </div>,
     <div className='feature-card'>
       <div className="feature-section" id="mental-health-resources">
+        <a href="/affirmations">
+          <h2>Affirmations</h2>
+          <p></p>
+        </a>
+      </div>
+    </div>,
+    <div className='feature-card'>
+      <div className="feature-section" id="mental-health-resources">
+        <a href="/destress">
+          <h2>Destress</h2>
+          <p></p>
+        </a>
+      </div>
+    </div>,
+    <div className='feature-card'>
+      <div className="feature-section" id="mental-health-resources">
+        <a href="/mindfullness">
+          <h2>Mindfullness</h2>
+          <p></p>
+        </a>
+      </div>
+    </div>,
+    <div className='feature-card'>
+      <div className="feature-section" id="mental-health-resources">
         <a href="/resources">
           <h2>Mental Health Resources</h2>
           <p>Discover a comprehensive collection of mental health resources, carefully curated to support those facing mental health challenges. Our repository includes a wide range of websites, contact numbers, and informative links, providing access to expert advice, support groups, and therapeutic services. Whether you're looking for immediate help, seeking to understand more about mental health conditions, or exploring ways to support a loved one, our resources offer valuable guidance and reassurance in your journey towards wellbeing.</p>
@@ -29,7 +53,7 @@ function HomePage() {
           <p>Make a meaningful difference by contributing to esteemed organizations dedicated to advancing mental health awareness, education, and support. Your donations help fund vital services, including crisis intervention, ongoing research, and the development of educational programs aimed at destigmatizing mental health issues. By donating, you're not only supporting those in immediate need but also investing in a future where mental health is openly discussed, understood, and prioritized by communities worldwide. Join us in our mission to create a more compassionate and informed society.</p>
         </a>
       </div>
-    </div>
+    </div>,
   ];
 
   const itemVariants = {

@@ -1,6 +1,7 @@
 import './Chat.css';
 import React, { useState, useRef, useEffect } from 'react'
 import { FaMicrophone } from "react-icons/fa";
+import NavBar from '../NavBar/NavBar.js'
 
 function Chat() {
   const [text, setText] = useState('');
@@ -30,13 +31,8 @@ function Chat() {
 
   return (
     <div>
-      <nav className="navbar">
-        <a className="logo" href='/'>HelpingHand</a>
-        <div className="nav-links">
-          <a href="/resources">Resources</a>
-          <a href="/donate">Donations</a>
-        </div>
-      </nav>
+      <NavBar currPage={'chat'}/>
+      
       <p className="title">HelpingHand AI Chat</p>
       <div className="select"></div>
       <Conversation conversation={conversation} />
