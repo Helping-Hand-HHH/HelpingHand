@@ -2,3 +2,96 @@
     font-size: xx-large;
     text-align: center;
 }
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #F5E9DC;
+    color: #333;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.phone-numbers {
+    color: black;
+    text-align: center;
+}
+.f-sections {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+.f-section {
+    border-bottom: 1px solid #eaeaea;
+    padding: 20px 0;
+  }
+.f-section:last-child {
+    border-bottom: none; 
+  }
+  
+.f-section a {
+    color: inherit; 
+    text-decoration: none; 
+    display: table; 
+  }
+  
+.f-section h2 {
+    color: #333; 
+    margin-bottom: 10px; 
+  }
+  
+.f-section p {
+    color: #666; 
+    margin-bottom: 0; 
+  }
+  
+.f-card h2 {
+    color: #f7b7d0;
+    text-align: center;
+  }
+  
+.f-card a {
+    color: inherit;
+    text-decoration: none;
+    display: table;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+.f-card {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    overflow: hidden; 
+  }
+@media (max-width: 768px) {
+    .f-sections {
+      padding: 10px;
+    }
+    .f-card {
+      flex-direction: column;
+    }
+    .f-section {
+      padding: 15px 0;
+    }
+  }
+.block {
+    width: 45%; /* Adjust width as needed */
+    float: left;
+    margin-right: 5%; 
+  }
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 2rem;
+    border-top: 4px solid #f7b7d0; 
+  }
