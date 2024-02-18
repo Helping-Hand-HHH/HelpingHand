@@ -35,3 +35,9 @@
     text-shadow: 0 0 10px #f7b7d0, 0 0 20px #f7b7d0, 0 0 30px #f7b7d0;
     transform: scale(1.1);
   }
+
+.img {
+  border-radius: 10px;
+  margin: -25px;
+  padding-top: 5px;
+}

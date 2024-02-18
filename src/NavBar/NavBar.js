@@ -4,7 +4,6 @@ function NavBar({ currPage }) {
     const links = [
       <a id="chat" href="/chat">Chat</a>,
       <a id="affirmations" href="/affirmations">Affirmations</a>,
-      <a id="destress" href="/destress">Destress</a>,
       <a id="mindfulness" href="/mindfulness">Mindfulness</a>,
       <a id="resources" href="/resources">Resources</a>,
       <a id="donate" href="/donate">Donations</a>,
@@ -18,7 +17,9 @@ function NavBar({ currPage }) {
   
     return (
       <nav className="navbar">
-        <a className="logo" href='/'>HelpingHand</a>
+        <a href='/'>
+          <img className='img' alt='HelpingHand' src='help.png' height={100} width={100}></img>
+        </a>
         <div className="nav-links">
           {nav}
         </div>

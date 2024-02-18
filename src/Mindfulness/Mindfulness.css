@@ -4,6 +4,41 @@
     padding-top: 10px;
 }
 
+.question, input {
+    margin-left: 10px;
+    padding-bottom: 10px;
+}
+
+.a {
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px
+}
+
+.in {
+    padding-left: 10px;
+}
+
+.input {
+    border-radius: 10px;
+    padding: 3px;
+    border: 1px solid black;
+}
+
 .qa {
     text-align: center;
+    border: 3px solid white;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow-y: auto;
+    word-wrap: break-word; 
+    white-space: normal;
+}
+
+
+.q {
+    padding: 10px;
 }

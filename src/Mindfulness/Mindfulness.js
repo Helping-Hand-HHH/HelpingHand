@@ -1,6 +1,6 @@
 import './Mindfulness.css';
 import NavBar from '../NavBar/NavBar.js'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 function Mindfulness() {
     const [question, setQuestion] = useState('');
@@ -9,11 +9,24 @@ function Mindfulness() {
 
     window.addEventListener('load', function() {
       getQuestion();
+      const storedQA = localStorage.getItem('qa');
+      console.log(storedQA);
+      if (storedQA) {
+        setQA(JSON.parse(storedQA));
+      }
     });
+
+    const clearStorage = () => {
+      localStorage.removeItem('qa');
+      setQA([]);
+    };
 
     const updateQA = (newQ, newA) => {
       const newQAPair = { question: newQ, response: newA };
-      setQA(prevQaList => [...prevQaList, newQAPair]);
+      setQA(prevQaList => {
+        localStorage.setItem('qa', JSON.stringify([...prevQaList, newQAPair]));
+        return [...prevQaList, newQAPair];
+      });
     };
 
     const handleSubmit = (event) => {
@@ -49,25 +62,43 @@ function Mindfulness() {
       <div key={index}>
         {item.response && (
           <div className='qa'>
-            <p>{item.question}: </p>
-            <p>{item.response}</p>
+            <p className='q'>{item.question}: </p>
+            <p className='a'>{item.response}</p>
           </div>
         )}
       </div>
     ));
+
+    const textareaRef = React.useRef(null); 
+  
+    const handleTextChange = (e) => {
+      const textarea = textareaRef.current;
+      setResponse(e.target.value);
+    
+      textarea.style.height = 'auto'; 
+    
+      textarea.style.height = textarea.scrollHeight + 'px';
+    };
 
     return (
         <div>
             <NavBar currPage={'mindfulness'}/>
             <p className='title'>Mindfulness</p>
             <p className='question'>{question}</p>
-            <input 
-              onKeyDown={handleSubmit}
-              value={response}
-              type="text" 
-              onChange={e => setResponse(e.target.value)}
-              placeholder="Press Enter to submit">
-            </input>
+            <div className='in'>
+              <textarea 
+                rows={1}
+                cols={50}
+                ref={textareaRef}
+                className='input'
+                onKeyDown={handleSubmit}
+                value={response}
+                type="text" 
+                onChange={handleTextChange}
+                placeholder="Press Enter to submit">
+              </textarea>
+            </div>
+            <button className='clear' onClick={clearStorage}>Clear Questions</button>
             {items}
         </div>
     );

@@ -24,14 +24,6 @@ function HomePage() {
     </div>,
     <div className='feature-card'>
       <div className="feature-section" id="mental-health-resources">
-        <a href="/destress">
-          <h2>Destress</h2>
-          <p>Discover calm with our meditation and breathing techniques, designed for instant relaxation and mental wellbeing. Practice our easy-to-follow routines anytime, anywhere, for peace and renewal.</p>
-        </a>
-      </div>
-    </div>,
-    <div className='feature-card'>
-      <div className="feature-section" id="mental-health-resources">
         <a href="/mindfulness">
           <h2>Mindfulness</h2>
           <p>Enhance your life with mindfulness practices for the present moment. Our exercises promote awareness, gratitude, and joy, helping you observe thoughts and feelings non-judgmentally. Cultivate mindfulness to boost focus, lower stress, and improve relationships.</p>
