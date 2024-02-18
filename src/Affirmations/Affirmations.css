@@ -73,3 +73,19 @@
     cursor: move;
     user-select: none; /* Disable text selection while dragging */
   }
+
+.draggable-textbox {
+    position: absolute;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: move;
+    width: 20%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.draggable-textbox p {
+    margin: 0;
+}
