@@ -48,6 +48,28 @@ async function transcribeAudio(audiofile){
     console.log(data[0].results.map(r=>r.alternatives[0].transcript).join('\n'));
 })()
 
+const client = new textToSpeech.TextToSpeechClient();
+
+async function transformTexttoSpeechWithGoogle(text, outputFile ){
+    try{const request = {
+        input: {text},
+        voice: { languageCode: 'en_US', ssmlGender: 'NEUTRAL'},
+        audioConfig: {audioEncoding: 'MP3'}
+    };
+
+    const [response] = await client.synthesizeSpeech(request);
+    console.log(response);
+    fs.writeFileSync(outputFile,response.audioContent,'binary');
+    return outputFile;
+    }catch(error){
+    console.error('ERROR:', error);
+    }
+}
+
+(async()=> {
+    transformTexttoSpeechWithGoogle('Test text I want to hear', 'output.mp3')
+})()
+
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const app = express();
 app.use(express.json());
