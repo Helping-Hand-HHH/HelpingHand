@@ -2,10 +2,51 @@ const { OpenAI } = require('openai')
 require('dotenv').config({ path: '../../.env' });
 const express = require('express');
 const cors = require('cors');
-const SpeechToTextV1 = require('ibm-watson/speech-to-text/v1');
-const { IamAuthenticator } = require('ibm-watson/auth');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+
+const speech = require('@google-cloud/speech');
+const fs = require('fs');
+const { resolve } = require('path');
+
+process.env.GOOGLE_APPLICATION_CREDENTIALS='./application_default_credentials.json';
+
+async function transcribeAudio(audiofile){
+    try{
+        const speechClient = new speech.SpeechClient();
+        
+        const file =fs.readFileSync(audiofile);
+        const audioBytes = file.toString('base64');
+
+        const audio = {
+            content: audioBytes
+        };
+
+        const config = {
+            //encoding:'LINEAR16',
+            //sampleRateHertz:44100,
+            languageCode:'en-US'
+
+        }
+        return new Promise((resolve,reject)=>{
+            speechClient.recognize({audio,config})
+            .then(data=>{
+                resolve(data);
+            })
+            .catch(error=>{
+                reject(error);
+            })
+        })
+    }catch(error){
+        console.error('ERROR:', error);
+    }
+}
+ 
+(async()=>{
+    const data = await transcribeAudio('./recording.wav');
+    console.log(data[0].results[0].alternatives)
+    console.log(data[0].results.map(r=>r.alternatives[0].transcript).join('\n'));
+})()
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const app = express();
@@ -32,38 +73,6 @@ app.get('/api/gpt/question', async (req, res) => {
     try {
         const result = await generate_question();
         res.json({ message: result });
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send('Error processing request');
-    }
-});
-
-const speechToText = new SpeechToTextV1({
-    authenticator: new IamAuthenticator({
-      apikey: process.env.IBM_WATSON_API_KEY,
-    }),
-    serviceUrl: process.env.IBM_WATSON_SERVICE_KEY,
-});
-
-app.post('/api/gpt/audio', upload.single('audio'), async (req, res) => {
-    try {
-        const params = {
-            audio: fs.createReadStream(req.file.path),
-            contentType: 'audio/wav',
-        };
-        speechToText.recognize(params)
-        .then(response => {
-            try {
-                res.json(response.result);
-            } catch (error) {
-                console.error('Error:', error);
-                res.status(500).send('Error processing request');
-            }
-        })
-        .catch(err => {
-            console.error('Error:', err);
-            res.status(500).send('Error processing request');
-        });
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Error processing request');
