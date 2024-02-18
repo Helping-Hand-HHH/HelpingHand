@@ -163,17 +163,17 @@ function AudioRecorder({ setResponse }) {
         audioChunks.current.push(event.data);
       };
       mediaRecorder.current.onstop = () => {
-        // const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+        const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
 
-        // const audioUrl = URL.createObjectURL(audioBlob);
+        const audioUrl = URL.createObjectURL(audioBlob);
       
-        // const downloadLink = document.createElement('a');
-        // downloadLink.href = audioUrl;
-        // downloadLink.setAttribute('download', 'recording.wav'); 
-        // document.body.appendChild(downloadLink); 
-        // downloadLink.click();
+        const downloadLink = document.createElement('a');
+        downloadLink.href = audioUrl;
+        downloadLink.setAttribute('download', 'recording.wav'); 
+        document.body.appendChild(downloadLink); 
+        downloadLink.click();
       
-        // URL.revokeObjectURL(audioUrl);
+        URL.revokeObjectURL(audioUrl);
       
         audioChunks.current = [];
       };
