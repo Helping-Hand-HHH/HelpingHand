@@ -149,7 +149,7 @@ function AudioRecorder({ setResponse }) {
       }
   
       const data = await response.json();
-      console.log('Success:', data.message);
+      console.log('Success:', data);
     } catch (error) {
       console.error('Error:', error);
     }
