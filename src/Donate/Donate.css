@@ -2,3 +2,128 @@
     font-size: xx-large;
     text-align: center;
 }
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #F5E9DC;
+    color: #333;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.g-sections {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+.g-section {
+    border-bottom: 1px solid #eaeaea;
+    padding: 20px 0;
+  }
+.g-section:last-child {
+    border-bottom: none; 
+  }
+  
+.g-section a {
+    color: inherit; 
+    text-decoration: none; 
+    display: table; 
+  }
+  
+.g-section h2 {
+    color: #333; 
+    margin-bottom: 10px; 
+  }
+  
+.g-section p {
+    color: #666; 
+    margin-bottom: 0; 
+  }
+  
+.g-card h2 {
+    color: #f7b7d0;
+    text-align: center;
+  }
+  
+.g-card a {
+    color: inherit;
+    text-decoration: none;
+    display: table;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+.g-card{
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    overflow: hidden; 
+    animation: pinkGlow 3s linear infinite;
+  }
+@media (max-width: 768px) {
+    .g-sections {
+      padding: 10px;
+    }
+    .g-card {
+      flex-direction: column;
+    }
+    .g-section {
+      padding: 15px 0;
+    }
+  }
+.block {
+    width: 45%; /* Adjust width as needed */
+    float: left;
+    margin-right: 5%; 
+  }
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 2rem;
+    border-top: 4px solid #f7b7d0; 
+  }
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+    }
+    
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+    }
+    
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    }
+  }
+  @keyframes pinkGlow {
+    0%, 100% {
+      box-shadow: 0 0 4px 2px #f7b7d0; 
+    }
+    25% {
+      box-shadow: 0 4px 4px 2px #f7b7d0;
+    }
+    50% {
+      box-shadow: 4px 0 4px 2px #f7b7d0;
+    }
+    75% {
+      box-shadow: 0 -4px 4px 2px #f7b7d0; 
+    }
+  }  
+  .g-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px #f7b7d0;
+    animation: none;
+  }
