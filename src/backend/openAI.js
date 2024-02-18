@@ -72,7 +72,7 @@ app.post('/api/gpt/audio', upload.single('audio'), async (req, res) => {
 
 async function generate_response(input) {
 
-    let query = `You help those struggling with mental illness by guiding them carefully and empathetically through tough situations. Guide the user.`;
+    let query = `Respond to the user empathetically and conversationally.`;
 
     const messages = [
         {"role": "system", "content": input},
