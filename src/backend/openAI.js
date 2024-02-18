@@ -3,50 +3,12 @@ require('dotenv').config({ path: '../../.env' });
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
-
 const speech = require('@google-cloud/speech');
+const textToSpeech = require('@google-cloud/text-to-speech');
 const fs = require('fs');
 const { resolve } = require('path');
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS='./application_default_credentials.json';
-
-async function transcribeAudio(audiofile){
-    try{
-        const speechClient = new speech.SpeechClient();
-        
-        const file =fs.readFileSync(audiofile);
-        const audioBytes = file.toString('base64');
-
-        const audio = {
-            content: audioBytes
-        };
-
-        const config = {
-            //encoding:'LINEAR16',
-            //sampleRateHertz:44100,
-            languageCode:'en-US'
-
-        }
-        return new Promise((resolve,reject)=>{
-            speechClient.recognize({audio,config})
-            .then(data=>{
-                resolve(data);
-            })
-            .catch(error=>{
-                reject(error);
-            })
-        })
-    }catch(error){
-        console.error('ERROR:', error);
-    }
-}
- 
-(async()=>{
-    const data = await transcribeAudio('./recording.wav');
-    console.log(data[0].results[0].alternatives)
-    console.log(data[0].results.map(r=>r.alternatives[0].transcript).join('\n'));
-})()
 
 const client = new textToSpeech.TextToSpeechClient();
 
@@ -66,9 +28,13 @@ async function transformTexttoSpeechWithGoogle(text, outputFile ){
     }
 }
 
-(async()=> {
-    transformTexttoSpeechWithGoogle('Test text I want to hear', 'output.mp3')
-})()
+async function generateAudio(text) {
+    transformTexttoSpeechWithGoogle(text, 'output.mp3')
+}
+
+// (async()=> {
+//     transformTexttoSpeechWithGoogle('Test text I want to hear', 'output.mp3')
+// })()
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const app = express();
@@ -78,6 +44,47 @@ app.use(cors());
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+app.post('/api/gpt/listen', async (req, res) => {
+    try {
+        if (!req.body.text) {
+            return res.status(400).send('No text provided.');
+        }
+        const outputFile = await generateAudio(req.body.text, 'output.mp3');
+        res.sendFile(outputFile, { root: __dirname }); // Adjust the path as necessary
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Error processing request');
+    }
+});
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: (req, file, cb) => {
+        cb(null, 'recording.wav')
+    }
+});
+
+const upload = multer({ storage: storage });
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/api/gpt/audio', upload.single('audio'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).send('No file uploaded.');
+        }
+        const raw_text = await run(req.file.path);
+        res.json({ message: raw_text });
+
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Error processing request');
+    }
 });
 
 app.post('/api/gpt/text', async (req, res) => {
@@ -134,3 +141,51 @@ async function generate_question() {
 
     return completion.choices[0].message.content;
 }
+
+async function transcribeAudio(audiofile){
+    try{
+        const speechClient = new speech.SpeechClient();
+        
+        const file =fs.readFileSync(audiofile);
+        const audioBytes = file.toString('base64');
+
+        const audio = {
+            content: audioBytes
+        };
+
+        const config = {
+            // encoding:'LINEAR16',
+            // sampleRateHertz:44100,
+            languageCode:'en-US'
+
+        }
+        return new Promise((resolve,reject)=>{
+            speechClient.recognize({audio,config})
+            .then(data=>{
+                resolve(data);
+            })
+            .catch(error=>{
+                reject(error);
+            })
+        })
+    }catch(error){
+        console.error('ERROR:', error);
+    }
+}
+
+async function run(filepath) {
+    // const data = await transcribeAudio('./recording.wav');
+    const data = await transcribeAudio(filepath);
+    // console.log(data[0].results[0].alternatives)
+    // console.log(data[0].results.map(r=>r.alternatives[0].transcript).join('\n'));
+    return data[0].results.map(r=>r.alternatives[0].transcript);
+}
+
+async function demo() {
+    st = await run('./uploads/recording.wav');
+    console.log(st[0]);
+    ab = await generate_response(st[0]);
+    generateAudio(ab);
+}
+
+// demo();
