@@ -34,8 +34,8 @@ function Affirmations() {
         const newNote = {
             index: noteCards.length + 1,
             text: noteText,
-            x: 100,
-            y: 100
+            x: 200,
+            y: 200
         };
         setNoteCards(prevNoteCards => {
             const updatedNoteCards = [...prevNoteCards, newNote];
@@ -101,6 +101,11 @@ function Affirmations() {
         localStorage.setItem('noteCards', JSON.stringify(reIndexedNoteCards));
     };
 
+    const handleCancel = () => {
+        setShowAddNote(false)
+        setNoteInput('');
+    }
+
     return (
         <div>
             <NavBar currPage={'affirmations'}/>
@@ -123,15 +128,16 @@ function Affirmations() {
                 {showAddNote && (
                     <div className='popup'>
                         <div className='popup-inner'>
-                            <p className='title'>New Affirmation</p>
+                            <p className='addNotesTitle'>New Affirmation</p>
                             <input 
                             className="notesInput" 
+                            style={{ textAlign: 'center', overflowWrap: 'break-word'}}
                             placeholder="Type and press Enter to submit"
                             value={noteInput}
                             onChange={(e) => setNoteInput(e.target.value)}
                             onKeyDown={handleKeyDown}
                             ></input>
-                            <button onClick={() => setShowAddNote(false)}>Cancel</button>
+                            <button onClick={handleCancel}>Cancel</button>
                         </div>
                         
                     </div>

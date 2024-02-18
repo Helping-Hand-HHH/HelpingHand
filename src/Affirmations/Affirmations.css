@@ -18,8 +18,8 @@
     position: absolute;
     top: 50;
     left: 50;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,8 +29,10 @@
 }
 
 .addButton {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
+    font-size: 50px; 
+    line-height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,12 +67,13 @@
   }
   
   .popup-inner {
-    background-color: white;
+    background-color: #f7b7d0;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); */
+    box-shadow: 0 2px 15px rgb(230, 157, 169);
     width: 60%;
-    max-width: 10000px;
+    max-width: 500px;
     height: auto;
     min-height: 200px;
     display: flex;
@@ -80,13 +83,12 @@
     justify-content: center;
   }
 
-  .movable-text-box {
-    position: absolute;
-    border: 1px solid black;
-    padding: 10px;
-    cursor: move;
-    user-select: none; /* Disable text selection while dragging */
-  }
+.addNotesTitle {
+    font-size: xx-large;
+    text-align: center;
+    padding-top: 10px;
+    color: whitesmoke;
+}
 
 .draggable-textbox {
     position: absolute;
@@ -95,11 +97,14 @@
     padding: 10px;
     cursor: move;
     width: 20%;
-    height: 30%;
+    min-height: 10%;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .draggable-textbox p {
     margin: 0;
+    word-wrap: break-word;
+    padding: 20px;
 }
