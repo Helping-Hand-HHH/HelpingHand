@@ -19,18 +19,23 @@ function Affirmations() {
         // Initialize noteCards from localStorage or default value
         const storedNoteCards = localStorage.getItem('noteCards');
         return storedNoteCards ? JSON.parse(storedNoteCards) : [
-            { index: 1, text: 'Item 1', x: 30, y: 30},
-            { index: 2, text: 'Item 2', x: 50, y: 50},
+            // { index: 1, text: 'Item 1', x: 30, y: 30},
+            // { index: 2, text: 'Item 2', x: 50, y: 50},
         ];
     });
 
+    const clearStorage = () => {
+        localStorage.removeItem('noteCards');
+        console.log("clear being called");
+        setNoteCards([]);
+    }
 
     const addNoteCard = (noteText) => {
         const newNote = {
             index: noteCards.length + 1,
             text: noteText,
-            x: 60,
-            y: 60
+            x: 100,
+            y: 100
         };
         setNoteCards(prevNoteCards => {
             const updatedNoteCards = [...prevNoteCards, newNote];
@@ -39,16 +44,6 @@ function Affirmations() {
             return updatedNoteCards;
         });
     };
-
-    // const addNoteCard = (noteText) => {
-    //     const newNote = {
-    //         index: noteCards.length + 1,
-    //         text: noteText,
-    //         x: 60,
-    //         y: 60
-    //     };
-    //     setNoteCards(prevNoteCards => [...prevNoteCards, newNote]); 
-    // };
 
     // State variables to track the position and dragging of the textbox
     const [position, setPosition] = useState({ x: 300, y: 300 });
@@ -97,8 +92,13 @@ function Affirmations() {
 
     const handleDoubleClick = (index) => {
         const updatedNoteCards = noteCards.filter((item) => item.index !== index);
-        setNoteCards(updatedNoteCards);
-        localStorage.setItem('noteCards', JSON.stringify(updatedNoteCards));
+        // Re-indexing the remaining items
+        const reIndexedNoteCards = updatedNoteCards.map((item, i) => ({
+            ...item,
+            index: i+1
+        }));
+        setNoteCards(reIndexedNoteCards);
+        localStorage.setItem('noteCards', JSON.stringify(reIndexedNoteCards));
     };
 
     return (
@@ -107,6 +107,7 @@ function Affirmations() {
             <p className='title'>Affirmations</p>
             <div>
                 <button className="addButton" onClick={() => setShowAddNote(true)}>+</button>
+                <button className="clearButton" onClick={clearStorage}>Clear</button>
                 {noteCards.length > 0 && noteCards.map(item => (
                  <div key={item.index}
                     className="draggable-textbox"
