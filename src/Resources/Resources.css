@@ -80,8 +80,8 @@ body, html {
   }
 .block {
     width: 45%; /* Adjust width as needed */
-    float: left;
-    margin-right: 5%; 
+    float: right;
+    margin-right: 3.2%; 
   }
 .clearfix::after {
     content: "";
