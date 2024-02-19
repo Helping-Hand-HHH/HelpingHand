@@ -28,8 +28,9 @@ async function transformTexttoSpeechWithGoogle(text, outputFile ){
     }
 }
 
+
 async function generateAudio(text) {
-    transformTexttoSpeechWithGoogle(text, 'output.mp3')
+    transformTexttoSpeechWithGoogle(text, '../Chat/output.mp3')
 }
 
 // (async()=> {
@@ -46,18 +47,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-app.post('/api/gpt/listen', async (req, res) => {
-    try {
-        if (!req.body.text) {
-            return res.status(400).send('No text provided.');
-        }
-        const outputFile = await generateAudio(req.body.text, 'output.mp3');
-        res.sendFile(outputFile, { root: __dirname }); // Adjust the path as necessary
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send('Error processing request');
-    }
-});
+// app.use('/audio', express.static('response/'));
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -70,6 +60,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+const bodyParserMiddleware = express.json();
+app.use((req, res, next) => {
+    if (req.path === '/api/gpt/audio') {
+        // Skip body parser for file upload route
+        next();
+    } else {
+        // Use body parser for other routes
+        bodyParserMiddleware(req, res, next);
+    }
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -79,7 +80,11 @@ app.post('/api/gpt/audio', upload.single('audio'), async (req, res) => {
             return res.status(400).send('No file uploaded.');
         }
         const raw_text = await run(req.file.path);
-        res.json({ message: raw_text });
+        const convo = await generate_response(raw_text);
+        const outputFile = await generateAudio(convo);
+
+        // const fileUrl = `${req.protocol}://${req.get('host')}/audio/${outputFile}`;
+        res.json({ user: raw_text, bot: convo });
 
     } catch (error) {
         console.error('Error:', error);
@@ -178,7 +183,7 @@ async function run(filepath) {
     const data = await transcribeAudio(filepath);
     // console.log(data[0].results[0].alternatives)
     // console.log(data[0].results.map(r=>r.alternatives[0].transcript).join('\n'));
-    return data[0].results.map(r=>r.alternatives[0].transcript);
+    return data[0].results.map(r=>r.alternatives[0].transcript)[0];
 }
 
 async function demo() {

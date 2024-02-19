@@ -2,6 +2,7 @@ import './Chat.css';
 import React, { useState, useRef, useEffect } from 'react'
 import { FaMicrophone } from "react-icons/fa";
 import NavBar from '../NavBar/NavBar.js'
+import output from './output.mp3'
 
 function Chat() {
   const [text, setText] = useState('');
@@ -39,7 +40,7 @@ function Chat() {
       <TextSubmit text={text} setResponse={setResponse} setText={setText} updateConversation={updateConversation}/>
       <p className='response'>{response}</p>
       <div className='mic'>
-        <AudioRecorder setResponse={setResponse}/>
+        <AudioRecorder updateConversation={updateConversation} setResponse={setResponse}/>
       </div>
       <button className='clear' onClick={clearStorage}>Clear</button>
     </div>
@@ -121,7 +122,7 @@ function TextSubmit({ setResponse, text, setText, updateConversation }) {
   );
 }
 
-function AudioRecorder({ setResponse }) {
+function AudioRecorder({ updateConversation, setResponse }) {
   const [recording, setRecording] = useState(false);
   const mediaRecorder = useRef(null);
   const audioChunks = useRef([]);
@@ -131,25 +132,32 @@ function AudioRecorder({ setResponse }) {
     setRecording(false);
   };
   
-  const sendAudio = async () => {
-    const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
-    audioChunks.current = [];
+  const sendAudio = async (audioBlob) => {
+    // console.log(audioBlob);
+    // const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+    // audioChunks.current = [];
   
     try {
       const formData = new FormData();
       formData.append('audio', audioBlob, 'recording.wav');
   
-      const response = await fetch('http://localhost:3000/api/gpt/audio', {
+      const response = await fetch('http://localhost:3001/api/gpt/audio', {
         method: 'POST',
         body: formData,
       });
-  
+      
+      await new Promise(r => setTimeout(r, 2000));
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-  
       const data = await response.json();
-      console.log('Success:', data);
+      // console.log('Success:', data.user);
+      setResponse('Waiting for Submission');
+      updateConversation(data.user, data.bot);
+      let button = document.getElementById("sound");
+      button.click();
+
     } catch (error) {
       console.error('Error:', error);
     }
@@ -162,21 +170,17 @@ function AudioRecorder({ setResponse }) {
       mediaRecorder.current.ondataavailable = (event) => {
         audioChunks.current.push(event.data);
       };
-      mediaRecorder.current.onstop = () => {
-        // const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
-
-        // const audioUrl = URL.createObjectURL(audioBlob);
-      
-        // const downloadLink = document.createElement('a');
-        // downloadLink.href = audioUrl;
-        // downloadLink.setAttribute('download', 'recording.wav'); 
-        // document.body.appendChild(downloadLink); 
-        // downloadLink.click();
-      
-        // URL.revokeObjectURL(audioUrl);
-      
-        audioChunks.current = [];
+      mediaRecorder.current.onstop = async () => {
+        // Ensure there's data before creating a blob
+        if (audioChunks.current && audioChunks.current.length > 0) {
+          const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+          sendAudio(audioBlob); // Call sendAudio with the blob
+        } else {
+          console.error("No audio data available to send.");
+        }
+        audioChunks.current = []; // Reset for the next recording
       };
+      
       mediaRecorder.current.start();
       setRecording(true);
     } else {
@@ -189,7 +193,6 @@ function AudioRecorder({ setResponse }) {
       setResponse('Audio recording stopped, generating response');
       stopRecording();
       document.getElementById('fa').style.color = 'black';
-      sendAudio();
     }
     else {
       setResponse('Capturing Audio');
@@ -198,9 +201,21 @@ function AudioRecorder({ setResponse }) {
     }
   };
 
+  const playAudio = () => {
+    new Audio(output).play();
+  };
+  
   return (
-    <div id='fa'>
-      {/* <FaMicrophone onClick={handleClick} /> */}
+    <div>
+      <div id='fa'>
+        <FaMicrophone onClick={handleClick} />
+      </div>
+      {/* <div className='aud'>
+        <audio controls autoplay>
+          <source src={output} type="audio/mpeg"></source>
+        </audio>
+      </div> */}
+      <button className='aud' id='sound' onClick={playAudio}></button>
     </div>
   );
 };

@@ -89,6 +89,10 @@
   display: none; 
 }
 
+.aud {
+  display: none;
+}
+
 .conversation {
   font-size: medium;
   text-align: left;
